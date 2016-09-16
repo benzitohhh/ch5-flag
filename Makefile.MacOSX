@@ -1,11 +1,14 @@
-GLEW_INCLUDE = /opt/local/include
-GLEW_LIB = /opt/local/lib
+CFLAGS=-Wno-deprecated-declarations -g
+GLEW_INCLUDE = /usr/local/include
+GLEW_LIB = /usr/local/lib
+
+all: flag
 
 flag: file-util.o gl-util.o meshes.o flag.o
-	gcc -o flag $^ -framework GLUT -framework OpenGL -L$(GLEW_LIB) -lGLEW
+	gcc -o flag $^ -framework GLUT -framework OpenGL -L$(GLEW_LIB) -lGLEW $(CFLAGS)
 
 .c.o:
-	gcc -c -o $@ $< -I$(GLEW_INCLUDE)
+	gcc -c -o $@ $< -I$(GLEW_INCLUDE) $(CFLAGS)
 
 clean:
 	rm -f flag *.o
